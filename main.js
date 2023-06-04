@@ -2,7 +2,6 @@ const homeBtn = document.querySelector(".home-btn")
 let mainPage = document.querySelector(".main-container")
 homeBtn.addEventListener("click", backToHomePage)
 
-
 backToHomePage()
 function backToHomePage(){
   mainPage.innerHTML= `
@@ -47,6 +46,7 @@ function logIn(event){
       logInBtn.style.display="none"
       backToHomePage()
       changeLogin_logout()
+      localStorage.setItem("activeUser", user.name)
       return
     }
   }
@@ -56,7 +56,7 @@ function logIn(event){
     incorrectInput.innerHTML= ""
     },3000)
 }
-console.log(mainPage)
+
 function find(name){
   const users = JSON.parse(localStorage.getItem("users"))
   if (users){
@@ -107,6 +107,7 @@ const createRecipeBtn = document.querySelector(".create-recipe")
 createRecipeBtn.addEventListener("click", displayCreateRecipe)
  
 function displayCreateRecipe() {
+  if (localStorage.getItem("activeUser")){
   mainPage.innerHTML= `
   <section class="create-new-recipe">
   <div class="nameContainer">
@@ -125,6 +126,14 @@ function displayCreateRecipe() {
   </div>
   <button class="submitBtn" onclick= "submitNewRecipe()">Submit</button>
 </section> `
+  }
+  else {
+    mainPage.innerHTML=`
+    <div class="main-container-homepage">
+      <h1>You don't have account yet?</h1>
+      <p>Log in or Create one<br>and share your recipe!</p>
+    </div>`
+  }
  }
 
  function addIngredients(){
@@ -190,6 +199,7 @@ const logOut = () =>{
   changeToLogin()
   const logInBtn = document.querySelector(".log-in")
 logInBtn.addEventListener("click", displayLogIn)
+localStorage.setItem("activeUser", "" )
 
 
 }
