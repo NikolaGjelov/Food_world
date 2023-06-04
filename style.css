@@ -1,0 +1,96 @@
+body{
+  background-image: url(./img/back1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+   
+}
+
+header{
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.btn-container
+.btn-container-log{
+  display: flex;
+  gap: 10px;
+  margin: 0 15px;
+}
+
+.recipes-menu,
+.recipes-categories,
+.create-recipe,
+.log-in,
+.home-btn,
+.log-out {
+  width: 110px;
+  height: 25px;
+  border-radius: 7px;
+  border: none;
+  background-color: rgba(165, 163, 163, 0.747);
+  color: white;
+}
+
+/* Homepage */
+
+.main-container-homepage{
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  margin-left: 50px;
+  font-size: 30px;
+}
+
+/* Code Below is style for Log In/ Sign Up */
+
+.in-main-container-log-in, .html-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.html-form{
+  margin-top: 100px;
+  gap: 10px;
+  background-color: rgba(165, 163, 163, 0.829);
+  box-shadow: 0px 0px 58px 0px rgba(0,0,0,1) inset;
+  -webkit-box-shadow: 0px 0px 58px 0px rgba(0,0,0,1) inset;
+  -moz-box-shadow: 0px 0px 58px 0px rgba(0,0,0,1) inset;
+  padding: 20px;
+  width: 250px;
+  height: 380px;
+}
+
+.log-btn, .create-account, .logout {
+  width: 100px;
+  height: 40px;
+  border: none;
+  background-color: rgb(77, 77, 77);
+  color: white;
+  border-radius: 20px
+}
+
+.sign-up{
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.create-account{
+  margin-top: 25px;
+}
+
+.user-busy, .incorrect-user{
+  color: red;
+}
+
+.create-new-recipe{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
