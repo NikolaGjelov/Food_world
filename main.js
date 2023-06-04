@@ -3,7 +3,7 @@ let mainPage = document.querySelector(".main-container")
 homeBtn.addEventListener("click", backToHomePage)
 
 
-
+backToHomePage()
 function backToHomePage(){
   mainPage.innerHTML= `
   <div class="main-container-homepage">
