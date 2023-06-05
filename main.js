@@ -110,22 +110,17 @@ function displayCreateRecipe() {
   if (localStorage.getItem("activeUser")){
   mainPage.innerHTML= `
   <section class="create-new-recipe">
-  <div class="nameContainer">
-    <input type="text" class="inputName" placeholder="Name of your recipe">
-  </div>
-  <div class="descriptionContainer">
-    <input type="text" class="inputDescription" placeholder="Tell us something about this dish">
-  </div>
-  <div class="ingredientsContainer">
-    <input type="text" class="inputIngredients" placeholder="Ingredients">
-    <button class= "addBtn" onclick= "addIngredients()">ADD</button>
-    <ul class="IngredientsUl"></ul>
-    <div>
-    <textarea name="" class="recipe" cols="30" rows="10" placeholder="How to cook this meal"></textarea>
+    <div class="create-new-recipe-container">
+      <input type="text" class="inputName" placeholder="Name of your recipe">
+      <input type="text" class="inputDescription" placeholder="Tell us something about this dish">
+    <div class="inputContainer">
+      <input type="text" class="inputIngredients" placeholder="Ingredients">
+      <button class= "addBtn" onclick= "addIngredients()">+</button>
     </div>
-  </div>
-  <button class="submitBtn" onclick= "submitNewRecipe()">Submit</button>
-</section> `
+      <ul class="IngredientsUl"></ul>
+      <textarea name="" class="recipe" cols="30" rows="10" placeholder="How to cook this meal"></textarea>
+    <button class="submitBtn" onclick= "submitNewRecipe()">Submit</button>
+    </section>`
   }
   else {
     mainPage.innerHTML=`
@@ -200,6 +195,5 @@ const logOut = () =>{
   const logInBtn = document.querySelector(".log-in")
 logInBtn.addEventListener("click", displayLogIn)
 localStorage.setItem("activeUser", "" )
-
 
 }
