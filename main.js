@@ -1,7 +1,7 @@
 const homeBtn = document.querySelector(".home-btn")
 let mainPage = document.querySelector(".main-container")
 homeBtn.addEventListener("click", backToHomePage)
-neznam()
+preventChangeOnLogOut()
 backToHomePage()
 function backToHomePage(){
   mainPage.innerHTML= `
