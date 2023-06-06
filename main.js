@@ -111,6 +111,15 @@ function displayCreateRecipe() {
   mainPage.innerHTML= `
   <section class="create-new-recipe">
     <div class="create-new-recipe-container">
+      <label for="categories">Categories:</label>
+      <select name="categories" class="categories-dropdown" class="prepTxt">
+        <option value="vegetarian" class="prepTxt">Vegetarian</option>
+        <option value="salad" class="prepTxt">Salad</option>
+        <option value="meat" class="prepTxt">Meat</option>
+        <option value="pasta" class="prepTxt">Pasta</option>
+        <option value="dessert" class="prepTxt">Dessert</option>
+        <option value="gluten-free" class="prepTxt">Gluten Free</option>
+      </select>
       <input type="text" class="inputName" placeholder="Name of your recipe">
       <input type="text" class="inputDescription" placeholder="Tell us something about this dish">
     <div class="inputContainer">
@@ -119,7 +128,20 @@ function displayCreateRecipe() {
     </div>
       <ul class="IngredientsUl"></ul>
       <textarea name="" class="recipe" cols="30" rows="10" placeholder="How to cook this meal"></textarea>
-    <button class="submitBtn" onclick= "submitNewRecipe()">Submit</button>
+    <div class="prep-time-container">
+      <p>Cooking time:</p>
+        <div class="preptime">
+          <div>
+            <input type="number" step="1" min="0" max="10" class="hour">
+            <span>Hours</span>
+          </div>
+          <div>
+            <input type="number" step="1" min="0" max="59" class="minute">
+            <span>Minutes</span>
+          </div>
+        </div>
+    </div>
+      <button class="submitBtn" onclick= "submitNewRecipe()">Submit</button>
     </section>`
   }
   else {
@@ -195,5 +217,4 @@ const logOut = () =>{
   const logInBtn = document.querySelector(".log-in")
 logInBtn.addEventListener("click", displayLogIn)
 localStorage.setItem("activeUser", "" )
-
 }
