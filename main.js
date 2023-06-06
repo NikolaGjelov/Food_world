@@ -1,7 +1,7 @@
 const homeBtn = document.querySelector(".home-btn")
 let mainPage = document.querySelector(".main-container")
 homeBtn.addEventListener("click", backToHomePage)
-
+neznam()
 backToHomePage()
 function backToHomePage(){
   mainPage.innerHTML= `
@@ -97,10 +97,6 @@ event.preventDefault()
   localStorage.setItem("users", JSON.stringify(users))
   location.reload()
  }
-}
-
-function logout(){
-  location.reload()
 }
 
 const createRecipeBtn = document.querySelector(".create-recipe")
@@ -217,4 +213,14 @@ const logOut = () =>{
   const logInBtn = document.querySelector(".log-in")
 logInBtn.addEventListener("click", displayLogIn)
 localStorage.setItem("activeUser", "" )
+}
+function preventChangeOnLogOut (){
+  if (localStorage.getItem("activeUser")){
+    changeLogin_logout
+    console.log("if")
+  }
+  else{
+    changeToLogin
+    console.log("else")
+  }
 }
