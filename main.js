@@ -1,5 +1,12 @@
 const homeBtn = document.querySelector(".home-btn")
 let mainPage = document.querySelector(".main-container")
+let logBtnContainer = document.querySelector(".btn-container-log")
+let arr = []
+function changeLogin_logout(){
+  logBtnContainer.innerHTML = `
+  <button class="log-out" onclick= "logOut()">Log Out</button>`
+}
+
 homeBtn.addEventListener("click", backToHomePage)
 preventChangeOnLogOut()
 backToHomePage()
@@ -14,7 +21,7 @@ function backToHomePage(){
 }
 
 const logInBtn = document.querySelector(".log-in")
-logInBtn.addEventListener("click", displayLogIn)
+logInBtn && logInBtn.addEventListener("click", displayLogIn)
 
 function displayLogIn(){
   mainPage.innerHTML=`
@@ -30,7 +37,6 @@ function displayLogIn(){
 </div>
   `
 }
-
 
 function logIn(event){
   let usernameInput = document.querySelector(".username-inp")
@@ -50,7 +56,6 @@ function logIn(event){
       return
     }
   }
-  
     incorrectInput.innerHTML= "Incorrect username or password"
     setTimeout(()=> {
     incorrectInput.innerHTML= ""
@@ -62,7 +67,6 @@ function find(name){
   if (users){
     return users.find(user => user.name === name)
   }
-
 }
 
 function signUpDisplay(){
@@ -102,8 +106,7 @@ event.preventDefault()
 const createRecipeBtn = document.querySelector(".create-recipe")
 createRecipeBtn.addEventListener("click", displayCreateRecipe)
  
-function displayCreateRecipe() {
-  if (localStorage.getItem("activeUser")){
+const displayCreateNewRec = () => {
   mainPage.innerHTML= `
   <section class="create-new-recipe">
     <div class="create-new-recipe-container">
@@ -139,6 +142,11 @@ function displayCreateRecipe() {
     </div>
       <button class="submitBtn" onclick= "submitNewRecipe()">Submit</button>
     </section>`
+}
+
+function displayCreateRecipe() {
+  if (localStorage.getItem("activeUser")){
+    displayCreateNewRec()
   }
   else {
     mainPage.innerHTML=`
@@ -166,18 +174,24 @@ function displayCreateRecipe() {
 
 
 function submitNewRecipe() {
+  let category = document.querySelector(".categories-dropdown").value
   let title = document.querySelector(".inputName").value
   let dsc = document.querySelector(".inputDescription").value
+  let hour = document.querySelector(".hour").value
+  let minute = document.querySelector(".minute").value
   const ing = []
   for (const child of document.querySelector(".IngredientsUl").children) {
     ing.push(child.innerHTML)
   }
   let recipe = document.querySelector(".recipe").value
   let obj = {
+    category,
     title,
     dsc,
     ingredients:ing,
-    recipe
+    recipe,
+    hour,
+    minute
   }
   let rec = localStorage.getItem("recipes")
   if (rec) 
@@ -196,11 +210,7 @@ function successSubmitRecipe(){
     <p>Thank you for your contribution!</p>
   </div>`
 }
-let logBtnContainer = document.querySelector(".btn-container-log")
-function changeLogin_logout(){
-  logBtnContainer.innerHTML = `
-  <button class="log-out" onclick= "logOut()">Log Out</button>`
-}
+
 function changeToLogin(){
   logBtnContainer.innerHTML = `
   <button class="log-in">Log in/Sign Up</button>`
@@ -214,13 +224,109 @@ const logOut = () =>{
 logInBtn.addEventListener("click", displayLogIn)
 localStorage.setItem("activeUser", "" )
 }
+
 function preventChangeOnLogOut (){
   if (localStorage.getItem("activeUser")){
-    changeLogin_logout
-    console.log("if")
+    changeLogin_logout()
   }
   else{
-    changeToLogin
-    console.log("else")
+    changeToLogin()
   }
 }
+
+
+const displayRecFromLocalStorage = () => {
+let recipes = JSON.parse(localStorage.getItem("recipes"))
+let recipesContainer = `<div class="recipesContainer">`
+
+for (let i=0; i < recipes.length; i++){
+  recipesContainer+=`
+  <div >
+    <h2>${recipes[i].title}</h2>
+    <h3>${recipes[i].dsc}</h3>
+    <p>Category: ${recipes[i].category}</p>
+    <p>Preparation time: ${recipes[i].hour} hours and ${recipes[i].minute} minutes</p>
+    <button class="goToRecipeBtn"id=${i} onclick="displaySelectedRecipe(event)">Go to Recipe</button>
+  </div>`
+} 
+recipesContainer+=`</div>`
+mainPage.innerHTML = `${recipesContainer}`
+}
+ const displaySelectedRecipe = (e) => {
+  let recipe = JSON.parse(localStorage.getItem("recipes"))[e.target.id]
+  let modalWrapper = document.createElement("div")
+  modalWrapper.classList.add("modalWrapper")
+  let modal = document.createElement('div');
+  modal.classList.add("modal")
+  let ingredients = ""
+  for(let i=0; i<recipe.ingredients.length; i++){
+    ingredients += `<li>${recipe.ingredients[i]}</li>`
+  }
+  modal.innerHTML = `
+  <button class="modal-btn" onclick="exitFromRecipe()">X</button>
+  <h1>${recipe.title}</h1>
+  <p>Ingredients needed:</p>
+  <ul>${ingredients}</ul>
+  <p>Preparation steps:</p>
+  <p>${recipe.recipe}</p>
+  <p>Preparation time: ${recipe.hour} hours and ${recipe.minute} minutes</p>
+  `
+  modalWrapper.appendChild(modal)
+  document.querySelector("body").appendChild(modalWrapper)
+ 
+}
+
+ const exitFromRecipe = () => {
+  let  modalWrapper = document.querySelector(".modalWrapper")
+  modalWrapper.remove()
+ }
+
+ const displayCategories = () => {
+  mainPage.innerHTML = `
+  <h1 class="category-title">Categories</h1>
+  <div class="categories-container">
+    <button class="vegetarian" value="vegetarian">Vegetarian</button>
+    <button class="salad" value="salad">salad</button>
+    <button class="meat" value="meat">meat</button>
+    <button class="dessert" value="dessert">Dessert</button>
+    <button class="pasta" value="pasta">Pasta</button>
+    <button class="gluten-free" value="gluten-free"></button>
+  </div>
+  `
+  let categoriesContainer = document.querySelector(".categories-container")
+  let btns = categoriesContainer.querySelectorAll("button")
+   btns.forEach(button => {
+    button.addEventListener('click', () => {
+       
+    let filterResult = JSON.parse(localStorage.getItem("recipes")).filter((recipe) => 
+      recipe.category == button.value)
+     arr.push(filterResult)
+ //test
+     console.log(filterResult)
+     console.log(typeof button.value)
+     console.log(button.value)
+     console.log(typeof arr)
+ let recipes = filterResult
+let recipesContainer = `<div class="recipesContainer">`
+
+for (let i=0; i < recipes.length; i++){
+  recipesContainer+=`
+  <div >
+    <h2>${recipes[i].title}</h2>
+    <h3>${recipes[i].dsc}</h3>
+    <p>Category: ${recipes[i].category}</p>
+    <p>Preparation time: ${recipes[i].hour} hours and ${recipes[i].minute} minutes</p>
+    <button class="goToRecipeBtn"id=${i} onclick="displaySelectedRecipe(event)">Go to Recipe</button>
+  </div>`
+} 
+recipesContainer+=`</div>`
+mainPage.innerHTML = `${recipesContainer}`
+     //test
+    
+    });
+})
+
+ }
+
+ const categoriesBtn = document.querySelector(".recipes-categories")
+ categoriesBtn.addEventListener("click", displayCategories)

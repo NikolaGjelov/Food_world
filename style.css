@@ -1,14 +1,21 @@
+*,
+*::after,
+*::before {
+  padding :0 ;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body{
   background-image: url(./img/back1.jpg);
   background-size: cover;
-  background-repeat: no-repeat;
-   
+  background-repeat: no-repeat;  
 }
 
 header{
   display: flex;
   justify-content: space-between;
-  
+  padding: 15px; 
 }
 
 .btn-container
@@ -184,4 +191,152 @@ text-align: center;
 .preptime{
   display: flex;
   flex-direction: column;
+} 
+
+.modalWrapper{ 
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+  background-color: #f9f9f9e0;
+}
+
+.modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-family:'Lobster', cursive; 
+  font-size: 20px;
+}
+
+.modal > h1, ul, p {
+  margin: 20px;
+}
+
+.modal-btn{
+  align-self: flex-end;
+  margin: 10px;
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal-btn:hover {
+  background-color: rgba(197, 0, 0, 0.877);
+  color: white;
+  transition-duration: 0.5s;
+}
+
+.recipesContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  background-color: rgba(100, 100, 100, 0.747);
+  margin: 20px;
+}
+
+.recipesContainer > div {
+  box-shadow: 0px 0px 58px 0px rgba(0,0,0,1) inset;
+  -webkit-box-shadow: 0px 0px 58px 0px rgba(0,0,0,1) inset;
+  -moz-box-shadow: 0px 0px 58px 0px rgba(0,0,0,1) inset;
+  padding: 20px;
+  text-align: center;
+  font-family:'Lobster', cursive; 
+  margin: 20px; 
+}
+
+.goToRecipeBtn{
+  width: 100%;
+  cursor: pointer;
+  font-family:'Lobster', cursive; 
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+.goToRecipeBtn:hover {
+  transition: 200ms ease-in-out;
+  box-shadow: 0px 0px 18px 9px rgba(255, 255, 255, 0.795);
+  -webkit-box-shadow: 0px 0px 18px 9px rgba(255, 255, 255, 0.795);
+  -moz-box-shadow: 0px 0px 18px 9px rgba(255,255,255, 0.795);
+}
+
+.categories-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  
+}
+
+.categories-container > button {
+  height: 250px;
+  width: 350px;
+  margin: auto;
+  padding: auto;
+  border-radius: 20px;
+  border: none;
+  font-size: 35px;
+  font-family:'Lobster', cursive;
+}
+
+.category-title {
+  text-align: center;
+  margin: 10px;
+}
+
+.vegetarian{
+  background-image: url(./img/vegetarian.jpeg);
+  background-size: 400px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 177, 9, 0.911);
+  color: white;
+}
+
+.salad{
+  background-image: url(./img/salad.jpg);
+  background-size: 400px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 177, 9, 0.911);
+  color: white;
+}
+
+.meat{
+  background-image: url(./img/meat.png);
+  background-size: 400px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(247, 81, 40, 0.911);
+  color: white;
+}
+
+.dessert{
+  background-image: url(./img/dessert.jpg);
+  background-size: 400px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(255, 35, 101, 0.911);
+}
+
+.pasta{
+  background-image: url(./img/pasta.jpg);
+  background-size: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(223, 182, 4, 0.836);
+}
+
+.gluten-free{
+  background-image: url(./img/gluten\ free.jpg);
+  background-size: 400px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(129, 78, 0, 0.911);
 }
