@@ -252,8 +252,9 @@ for (let i=0; i < recipes.length; i++){
 recipesContainer+=`</div>`
 mainPage.innerHTML = `${recipesContainer}`
 }
- const displaySelectedRecipe = (e) => {
-  let recipe = JSON.parse(localStorage.getItem("recipes"))[e.target.id]
+
+const displayRecipe = (from, id) => {
+  let recipe = from[id]
   let modalWrapper = document.createElement("div")
   modalWrapper.classList.add("modalWrapper")
   let modal = document.createElement('div');
@@ -273,6 +274,11 @@ mainPage.innerHTML = `${recipesContainer}`
   `
   modalWrapper.appendChild(modal)
   document.querySelector("body").appendChild(modalWrapper)
+}
+
+
+ const displaySelectedRecipe = (e) => {
+  displayRecipe(JSON.parse(localStorage.getItem("recipes")), e.target.id)
  
 }
 
@@ -298,15 +304,14 @@ mainPage.innerHTML = `${recipesContainer}`
    btns.forEach(button => {
     button.addEventListener('click', () => {
        
-    let filterResult = JSON.parse(localStorage.getItem("recipes")).filter((recipe) => 
+    arr = JSON.parse(localStorage.getItem("recipes")).filter((recipe) => 
       recipe.category == button.value)
-     arr.push(filterResult)
  //test
-     console.log(filterResult)
      console.log(typeof button.value)
      console.log(button.value)
      console.log(typeof arr)
- let recipes = filterResult
+     console.log(arr)
+ let recipes = arr
 let recipesContainer = `<div class="recipesContainer">`
 
 for (let i=0; i < recipes.length; i++){
@@ -316,7 +321,7 @@ for (let i=0; i < recipes.length; i++){
     <h3>${recipes[i].dsc}</h3>
     <p>Category: ${recipes[i].category}</p>
     <p>Preparation time: ${recipes[i].hour} hours and ${recipes[i].minute} minutes</p>
-    <button class="goToRecipeBtn"id=${i} onclick="displaySelectedRecipe(event)">Go to Recipe</button>
+    <button class="goToRecipeBtn"id=${i} onclick="displayFilteredRecipe(event)">Go to Recipe</button>
   </div>`
 } 
 recipesContainer+=`</div>`
@@ -327,6 +332,6 @@ mainPage.innerHTML = `${recipesContainer}`
 })
 
  }
-
- const categoriesBtn = document.querySelector(".recipes-categories")
- categoriesBtn.addEventListener("click", displayCategories)
+const displayFilteredRecipe = (e) => {
+  displayRecipe(arr,e.target.id)
+}
